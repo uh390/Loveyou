@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Keya 🌹</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;600&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #fff5f7 0%, #ffdee9 100%);
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 50px;
+            border-radius: 40px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 40px rgba(255, 105, 180, 0.2);
+            border: 2px solid #ffffff;
+            z-index: 10;
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            color: #ff3366;
+            margin-bottom: 40px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            position: relative;
+            min-height: 80px;
+        }
+
+        button {
+            padding: 15px 35px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        #loveBtn {
+            background: linear-gradient(45deg, #ff3366, #ff85a1);
+            color: white;
+            box-shadow: 0 8px 15px rgba(255, 51, 102, 0.3);
+        }
+
+        #loveBtn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 12px 25px rgba(255, 51, 102, 0.4);
+        }
+
+        #hateBtn {
+            background: #ffffff;
+            color: #ff3366;
+            border: 1px solid #ffccd5;
+        }
+
+        /* Falling items styling */
+        .falling-item {
+            position: fixed;
+            top: -10%;
+            pointer-events: none;
+            z-index: 5;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+        }
+
+        .falling-text {
+            color: #ff3366;
+            font-family: 'Dancing Script', cursive;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="mainBox">
+        <h1>I LOVE YOU KEYA 😌🌹</h1>
+        
+        <div class="btn-group">
+            <button id="loveBtn" onclick="startMagic()">I LOVE YOU 2 😌🌹</button>
+            
+            <button id="hateBtn" onmouseover="moveHateButton()" onclick="moveHateButton()">I HATE YOU</button>
+        </div>
+    </div>
+
+    <script>
+        // Hate Button shore jaowar logic
+        function moveHateButton() {
+            const btn = document.getElementById('hateBtn');
+            const x = Math.random() * (window.innerWidth - btn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - btn.offsetHeight);
+            
+            btn.style.position = 'fixed';
+            btn.style.left = x + 'px';
+            btn.style.top = y + 'px';
+            btn.style.zIndex = '1000';
+        }
+
+        // Rain animation logic
+        function startMagic() {
+            // Box-ti halka kore felbo jate bristi bhalo dekha jay
+            document.getElementById('mainBox').style.opacity = '0.4';
+            
+            // Proti 100ms por por bristi hobe
+            setInterval(createRainElement, 100);
+        }
+
+        function createRainElement() {
+            const elements = ["❤️", "🌹", "💖", "I LOVE YOU KEYA", "🌸", "💕"];
+            const item = document.createElement("div");
+            item.className = "falling-item";
+            
+            const randomContent = elements[Math.floor(Math.random() * elements.length)];
+            
+            if(randomContent === "I LOVE YOU KEYA") {
+                item.innerHTML = `<span class="falling-text">${randomContent}</span>`;
+                item.style.fontSize = (Math.random() * 15 + 20) + "px"; // 20-35px
+            } else {
+                item.innerText = randomContent;
+                item.style.fontSize = (Math.random() * 20 + 20) + "px"; // 20-40px
+            }
+
+            const startX = Math.random() * window.innerWidth;
+            const duration = (Math.random() * 3) + 2; // 2 to 5 seconds
+
+            item.style.left = startX + "px";
+            item.style.animationDuration = duration + "s";
+            
+            document.body.appendChild(item);
+
+            // Animation shesh hole element remove kore deya
+            setTimeout(() => {
+                item.remove();
+            }, duration * 1000);
+        }
+    </script>
+
+</body>
+</html>
